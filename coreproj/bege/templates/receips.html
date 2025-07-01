@@ -1,0 +1,79 @@
+
+{% extends "base.html" %}
+
+{% block start %}
+<h1 class="font-bold text-center">Welcome to the Receipe Page</h1>
+
+<div class="container m-6">
+    
+
+<form class="max-w-sm mx-auto border-gray-200 rounded-lg shadow-sm bg-blue-300 p-4 m-6" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h1 class="text-center text-white font-bold ">Recipe Form</h1>
+    <div class="mb-5">
+    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Recipe Name</label>
+    <input  name="recipe_name" type="text" placeholder="Recipe Name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required />
+  </div>
+  <div class="mb-5">
+    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Recipe Desciption</label>
+    <textarea name="recipe_desc" placeholder="Recipe Desciption" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required></textarea>
+  </div>
+<div class="mb-5">
+    <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Recipe Image</label>
+    <input  name="recipe_img" type="file" placeholder="Recipe Image" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required/>
+  </div>
+  <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full  px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+</form>
+
+
+<form class="max-w-md mx-auto">   
+    <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+    <div class="relative">
+        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+            </svg>
+        </div>
+        <input type="search" name="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Recipe..."  />
+        <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+    </div>
+</form>
+
+<!-- {{receipes}} -->
+
+
+<table class="container bg-gray-100 border-gray-200  rounded-lg shadow-sm dark:bg-blue-300 dark:border-gray-700 ">
+  <thead>
+    <tr>
+      <th scope="col">Recipe_name</th>
+      <th scope="col">Recipe_desc</th>
+      <th scope="col">Recipe_img</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+<tbody>
+    {% for receipe in receipes %}
+    <tr class="w-full">
+      <td>{{ receipe.recipe_name }}</td>
+      <td class="m-6">{{ receipe.recipe_desc }}</td>
+      <td>
+        {% if receipe.recipe_img %}
+          <img src="/media/{{receipe.recipe_img}}" alt="{{ receipe.recipe_name }}" width="100" />
+        {% endif %}
+      </td>
+      <td>
+        <button type="button" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+        <a href="/delete_recipe/{{receipe.id}}" class="">Delete</a>
+        </button>
+         <button type="button" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+        <a href="/update_recipe/{{receipe.id}}" class="">Update</a>
+        </button>
+      </td>
+    </tr>
+   {% endfor %}
+</tbody>
+</table> 
+
+</div>
+
+{% endblock %}
