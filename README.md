@@ -21,3 +21,5 @@ This is a simple Django-based Recipe Management System. It allows users to add, 
 - Uploaded images are stored in the `media/recipe/` directory.
 - Make sure `MEDIA_URL` and `MEDIA_ROOT` are properly set in your `settings.py` for image uploads.
 - For production, configure static and media file serving appropriately.
+
+![Django Proj Recipe](https://github.com/user-attachments/assets/a6d3f479-8444-4849-8cdc-70fe5cdba6d0)
